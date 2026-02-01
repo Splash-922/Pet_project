@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fahrzeugkatalog</title>
+    <link rel="stylesheet" href="../css/cars.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- EmailJS для отправки уведомлений на почту -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("8ot9OKBkCiNgSDDc4"); // EmailJS Public Key
+        })();
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Fahrzeugkatalog</h1>
+            <div class="header-buttons">
+                <button id="addCarBtn" class="btn-primary">Anzeige erstellen</button>
+                <button id="profileBtn" class="btn-profile">Mein Konto</button>
+                <button id="adminBtn" class="btn-secondary" style="display: none;">Admin-Bereich</button>
+                <button id="logoutBtn" class="btn-logout">Abmelden</button>
+            </div>
+        </header>
+
+        <div class="cars-container">
+            <div class="filters-container">
+                <div class="filters">
+                    <select id="brandFilter">
+                        <option value="">Alle Marken</option>
+                        <option value="Audi">Audi</option>
+                        <option value="BMW">BMW</option>
+                        <option value="Chevrolet">Chevrolet</option>
+                        <option value="Ford">Ford</option>
+                        <option value="Honda">Honda</option>
+                        <option value="Hyundai">Hyundai</option>
+                        <option value="Kia">Kia</option>
+                        <option value="Lada">Lada</option>
+                        <option value="Lexus">Lexus</option>
+                        <option value="Mazda">Mazda</option>
+                        <option value="Mercedes-Benz">Mercedes-Benz</option>
+                        <option value="Mitsubishi">Mitsubishi</option>
+                        <option value="Nissan">Nissan</option>
+                        <option value="Opel">Opel</option>
+                        <option value="Renault">Renault</option>
+                        <option value="Skoda">Skoda</option>
+                        <option value="Toyota">Toyota</option>
+                        <option value="Volkswagen">Volkswagen</option>
+                        <option value="Volvo">Volvo</option>
+                    </select>
+                    <input type="number" id="yearFrom" placeholder="Jahr von">
+                    <input type="number" id="yearTo" placeholder="Jahr bis">
+                    <input type="number" id="priceFrom" placeholder="Preis ab">
+                    <input type="number" id="priceTo" placeholder="Preis bis">
+                    <button id="applyFilters" class="btn-primary">Anwenden</button>
+                    <button id="resetFilters" class="btn-secondary">Zurücksetzen</button>
+                </div>
+            </div>
+            <div id="carsList" class="cars-grid">
+                <!-- Cars will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Car Modal -->
+    <div id="addCarModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Fahrzeuganzeige erstellen</h2>
+            <form id="addCarForm">
+                <div class="form-row">
+                    <input type="text" id="carTitle" placeholder="Anzeigentitel" required>
+                </div>
+                <div class="form-row">
+                    <select id="carBrand" required>
+                        <option value="">Marke auswählen</option>
+                        <option value="Audi">Audi</option>
+                        <option value="BMW">BMW</option>
+                        <option value="Chevrolet">Chevrolet</option>
+                        <option value="Ford">Ford</option>
+                        <option value="Honda">Honda</option>
+                        <option value="Hyundai">Hyundai</option>
+                        <option value="Infiniti">Infiniti</option>
+                        <option value="Kia">Kia</option>
+                        <option value="Lada">Lada</option>
+                        <option value="Lexus">Lexus</option>
+                        <option value="Mazda">Mazda</option>
+                        <option value="Mercedes-Benz">Mercedes-Benz</option>
+                        <option value="Mitsubishi">Mitsubishi</option>
+                        <option value="Nissan">Nissan</option>
+                        <option value="Opel">Opel</option>
+                        <option value="Peugeot">Peugeot</option>
+                        <option value="Renault">Renault</option>
+                        <option value="Skoda">Skoda</option>
+                        <option value="Subaru">Subaru</option>
+                        <option value="Suzuki">Suzuki</option>
+                        <option value="Toyota">Toyota</option>
+                        <option value="Volkswagen">Volkswagen</option>
+                        <option value="Volvo">Volvo</option>
+                    </select>
+                    <input type="text" id="carModel" placeholder="Modell" required>
+                </div>
+                <div class="form-row">
+                    <input type="number" id="carYear" placeholder="Baujahr" min="1990" max="2024" required>
+                    <input type="number" id="carPrice" placeholder="Preis" required>
+                    <select id="carCurrency" required>
+                        <option value="EUR">€ Euro</option>
+                        <option value="USD">$ US-Dollar</option>
+                        <option value="GBP">£ Britische Pfund</option>
+                        <option value="CHF">₣ Schweizer Franken</option>
+                        <option value="JPY">¥ Japanische Yen</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <input type="number" id="carMileage" placeholder="Kilometerstand (km)" required>
+                    <select id="carFuel" required>
+                        <option value="">Kraftstoffart</option>
+                        <option value="Benzin">Benzin</option>
+                        <option value="Diesel">Diesel</option>
+                        <option value="Hybrid">Hybrid</option>
+                        <option value="Elektro">Elektro</option>
+                        <option value="Erdgas">Erdgas</option>
+                        <option value="Autogas">Autogas</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <select id="carTransmission" required>
+                        <option value="">Getriebe</option>
+                        <option value="Schaltgetriebe">Schaltgetriebe</option>
+                        <option value="Automatik">Automatik</option>
+                        <option value="CVT">CVT-Getriebe</option>
+                        <option value="Doppelkupplung">Doppelkupplungsgetriebe</option>
+                    </select>
+                    <input type="text" id="carColor" placeholder="Farbe" required>
+                </div>
+                <div class="form-row">
+                    <input type="tel" id="carPhone" placeholder="Telefonnummer" required>
+                </div>
+                <div class="form-row">
+                    <textarea id="carDescription" placeholder="Fahrzeugbeschreibung" rows="4" required></textarea>
+                </div>
+                <div class="form-row">
+                    <label for="carImages">Fahrzeugfotos:</label>
+                    <input type="file" id="carImages" accept="image/*" multiple>
+                    <div id="imagePreview" class="image-preview"></div>
+                </div>
+                <button type="submit" class="btn-primary">Anzeige erstellen</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/cars.js"></script>
+    <script>
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load cars when the page loads
+            if (typeof loadCars === 'function') {
+                loadCars();
+            }
+            
+            // Set up event listeners for the modal
+            const addCarBtn = document.getElementById('addCarBtn');
+            const modal = document.getElementById('addCarModal');
+            const closeBtn = document.querySelector('.close');
+            
+            if (addCarBtn && modal) {
+                addCarBtn.addEventListener('click', function() {
+                    modal.style.display = 'block';
+                });
+            }
+            
+            if (closeBtn && modal) {
+                closeBtn.addEventListener('click', function() {
+                    modal.style.display = 'none';
+                });
+            }
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            // Check if user is admin
+            try {
+                const user = JSON.parse(localStorage.getItem('current_user') || 'null');
+                const adminBtn = document.getElementById('adminBtn');
+                if (user && user.isAdmin && adminBtn) {
+                    adminBtn.style.display = 'inline-block';
+                }
+            } catch (e) {
+                console.error('Error checking admin status:', e);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anmeldung - PetProject</title>
+    <link rel="stylesheet" href="../css/stylepet.css">
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form id="registerForm">
+                <h1>Konto erstellen</h1>
+                <input type="text" id="regName" placeholder="Name" required />
+                <input type="email" id="regEmail" placeholder="E-Mail" required />
+                <input type="password" id="regPassword" placeholder="Passwort" required />
+                <button type="submit">Registrieren</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form id="loginForm" autocomplete="off">
+                <h1>Anmelden</h1>
+                <input type="text" id="loginEmail" name="notanemail" placeholder="E-Mail" required autocomplete="nope" readonly onfocus="this.removeAttribute('readonly'); this.value='';" />
+                <input type="password" id="loginPassword" name="notapassword" placeholder="Passwort" required autocomplete="nope" readonly onfocus="this.removeAttribute('readonly'); this.value='';" />
+                <button type="submit">Anmelden</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Willkommen zurück!</h1>
+                    <p>Um mit uns in Verbindung zu bleiben, melden Sie sich mit Ihrem persönlichen Konto an</p>
+                    <button class="ghost" id="signIn" onclick="toggleForms()">Anmelden</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hallo, Freund!</h1>
+                    <p>Geben Sie Ihre persönlichen Daten ein und starten Sie Ihre Reise mit uns</p>
+                    <button class="ghost" id="signUp" onclick="toggleForms()">Registrieren</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/auth.js"></script>
+</body>
+</html>

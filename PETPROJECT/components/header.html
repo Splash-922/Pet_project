@@ -1,0 +1,43 @@
+<header class="main-header">
+    <div class="logo">
+        <a href="../index.html">
+            <img src="../logo.png" alt="PetProject Logo" class="logo-img">
+            <span>PetProject</span>
+        </a>
+    </div>
+    
+    <nav class="main-nav">
+        <ul>
+            <li><a href="../index.html">Startseite</a></li>
+            <li><a href="../pages/cars.html">Katalog</a></li>
+            <li><a href="../pages/profile.html">Profil</a></li>
+            <li><a href="../pages/admin.html" id="admin-link" style="display: none;">Admin-Bereich</a></li>
+        </ul>
+    </nav>
+    
+    <div class="auth-buttons">
+        <div class="notification-container">
+            <div class="notification-icon" id="notification-icon">
+                🔔
+                <span class="notification-badge" id="notification-badge">0</span>
+            </div>
+            <div class="notification-dropdown" id="notification-dropdown">
+                <div class="notification-header">
+                    <span>Benachrichtigungen</span>
+                </div>
+                <div id="no-notifications-message">Keine neuen Benachrichtigungen</div>
+                <!-- Notifications will be inserted here by JavaScript -->
+            </div>
+        </div>
+        
+        <div id="auth-buttons">
+            <a href="/pages/auth.html" class="btn btn-outline">Anmelden</a>
+            <a href="/pages/auth.html?action=register" class="btn btn-primary">Registrieren</a>
+        </div>
+        
+        <div id="user-menu" style="display: none;">
+            <span id="user-greeting"></span>
+            <button id="logout-btn" class="btn btn-outline">Abmelden</button>
+        </div>
+    </div>
+</header>

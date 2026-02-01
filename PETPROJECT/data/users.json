@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Test User",
+    "email": "test@mail.ru",
+    "password": "123456",
+    "notifications": []
+  },
+  {
+    "name": "Admin",
+    "email": "admin@mail.ru", 
+    "password": "admin",
+    "notifications": []
+  },
+  {
+    "name": "Иван Петров",
+    "email": "ivan@mail.ru",
+    "password": "ivan123",
+    "notifications": []
+  }
+]

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startseite - PetProject</title>
+    <link rel="stylesheet" href="../css/main-styles.css">
+    <link rel="stylesheet" href="../css/notifications.css">
+</head>
+<body>
+    <!-- Header with notifications -->
+    <div id="header-placeholder"></div>
+
+    <div class="main-container">
+        <div class="user-info">
+            <h2 id="userName">Benutzer</h2>
+            <p id="userEmail">beispiel@email.de</p>
+        </div>
+        
+        <div class="main-actions">
+            <a href="cars.html" class="btn-primary">Zum Katalog</a>
+            <a href="profile.html" class="btn-secondary">Mein Konto</a>
+        </div>
+    </div>
+
+    <!-- Load scripts in correct order -->
+    <script src="../js/auth.js"></script>
+    <script src="../js/notifications.js"></script>
+    <script>
+        // Funktion zum Aktualisieren der Benutzerinformationen
+        function updateUserInfo() {
+            const user = getCurrentUser();
+            console.log('Aktueller Benutzer:', user); // Für Debugging
+            
+            if (!user) {
+                console.log('Benutzer nicht angemeldet, leite weiter...');
+                window.location.href = '../index.html';
+                return false;
+            }
+            
+            // Benutzerinformationen aktualisieren
+            const userNameElement = document.getElementById('userName');
+            const userEmailElement = document.getElementById('userEmail');
+            
+            if (userNameElement) {
+                userNameElement.textContent = user.name || user.email.split('@')[0] || 'Benutzer';
+            }
+            
+            if (userEmailElement) {
+                userEmailElement.textContent = user.email || 'Keine E-Mail angegeben';
+            }
+            
+            // Admin-Bereich anzeigen, wenn der Benutzer ein Admin ist
+            const adminLink = document.getElementById('adminLink');
+            if (adminLink && user.email === 'admin@mail.ru') {
+                adminLink.style.display = 'block';
+            }
+            
+            // Benachrichtigungs-Badge aktualisieren, falls die Funktion verfügbar ist
+            if (typeof updateNotificationBadge === 'function') {
+                updateNotificationBadge();
+            }
+            
+            return true;
+        }
+        
+        // Загружаем шапку страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Überprüfen der Anmeldung beim Laden
+            if (!updateUserInfo()) {
+                return;
+            }
+            
+            // Header laden
+            fetch('../components/header.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('header-placeholder').innerHTML = html;
+                    // Nach dem Laden des Headers die Benutzerinformationen erneut aktualisieren
+                    updateUserInfo();
+                })
+                .catch(error => {
+                    console.error('Fehler beim Laden des Headers:', error);
+                    // Trotz Fehler fortfahren
+                    updateUserInfo();
+                });
+        });
+        
+        // Funktion zur Überprüfung des Anmeldestatus
+        function checkAuthState() {
+            if (!updateUserInfo()) {
+                window.location.href = '../index.html';
+            }
+        }
+        
+        // Logout function
+        function logout() {
+            localStorage.removeItem('current_user');
+            window.location.href = '../index.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin-Bereich</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>🔧 Admin-Bereich</h1>
+            <div class="header-info">
+                <span id="adminName">Admin</span>
+                <button id="logoutBtn" class="logout-btn">Abmelden</button>
+            </div>
+        </div>
+        
+        <div class="admin-navigation">
+            <button id="showLogsBtn" class="nav-btn active">Aktivitätsprotokolle</button>
+            <button id="showCarsBtn" class="nav-btn">Anzeigenverwaltung</button>
+        </div>
+        
+        <div id="logsSection" class="admin-section">
+            <h2>Aktivitätsprotokolle</h2>
+            <div id="activityList">
+                <!-- Protokolle werden per JavaScript geladen -->
+            </div>
+        </div>
+        
+        <div id="carsSection" class="admin-section" style="display: none;">
+            <h2>Anzeigenverwaltung</h2>
+            <div id="adminCarsGrid" class="cars-grid">
+                <!-- Anzeigen werden per JavaScript geladen -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/admin.js"></script>
+</body>
+</html>
